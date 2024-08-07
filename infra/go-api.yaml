@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-go-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-go-api
+  template:
+    metadata:
+      labels:
+        app: my-go-api
+    spec:
+      containers:
+      - name: my-go-api
+        image: alexandremsouza/my-go-api
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-go-api-service
+spec:
+  selector:
+    app: my-go-api
+  ports:
+  # Default port used by the image
+  - port: 8080
+  type: LoadBalancer
+  externalTrafficPolicy: Local

@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: "/random-name"
+        backend:
+          service:
+            name: my-go-api-service
+            port:
+              number: 8080
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: my-react-app-service
+            port:
+              number: 80
